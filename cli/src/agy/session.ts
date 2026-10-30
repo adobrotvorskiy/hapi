@@ -11,10 +11,8 @@ type LocalLaunchFailure = {
 };
 
 /**
- * Headless (print-mode) agy session. agy is spawned per user turn with
- * `-p <msg> --conversation <uuid> --output-format stream-json`; the driver
- * maps NDJSON events onto the existing transcript-entry channel
- * (sendAgySessionMessage), so hub/web rendering is unchanged.
+ * Remote Antigravity session driven by Google's official ACP agent.
+ * Native conversation IDs are persisted for exact session/load resume.
  */
 export class AgySession extends AgentSessionBase<AgyMode> {
     readonly startedBy: 'runner' | 'terminal';

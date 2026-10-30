@@ -6,7 +6,7 @@ import type { AgentFlavor } from '@hapi/protocol'
 type LaunchEnvironment = Record<string, string | undefined>
 
 const DEFAULT_COMMANDS: Record<AgentFlavor, string> = {
-    agy: 'agy',
+    agy: 'antigravity-acp',
     claude: 'claude',
     codex: 'codex',
     copilot: 'copilot',
@@ -24,6 +24,7 @@ export function getAgentLaunchCommand(
     flavor: AgentFlavor,
     env: LaunchEnvironment = process.env,
 ): string {
+    if (flavor === 'agy') return env.HAPI_AGY_ACP_PATH?.trim() || DEFAULT_COMMANDS.agy
     if (flavor === 'claude') return env.HAPI_CLAUDE_PATH?.trim() || DEFAULT_COMMANDS.claude
     if (flavor === 'copilot') return env.COPILOT_CLI_PATH?.trim() || DEFAULT_COMMANDS.copilot
     if (flavor === 'dsh') return env.HAPI_DSH_ACP_COMMAND?.trim() || DEFAULT_COMMANDS.dsh

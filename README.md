@@ -1,5 +1,12 @@
 # HAPI
 
+> **This fork:** Antigravity uses Google's official ACP agent for remote chat,
+> native OAuth profiles, model discovery, permissions, cancellation and resume.
+> It replaces the upstream `agy -p` integration. See
+> [setup and fork updates](docs/guide/antigravity-acp-local.md).
+> The npm commands below install upstream HAPI; build this fork from source to
+> use the ACP adapter.
+
 Run official Claude Code / Codex / Cursor Agent / Grok Build / OpenCode / Kimi / Copilot / Antigravity / Pi / DeepSeek Harness sessions and control them remotely through native iOS / Android apps, Web / PWA, or Telegram Mini App.
 
 > **Why HAPI?** HAPI is a local-first alternative to Happy. See [Why Not Happy?](docs/guide/why-hapi.md) for the key differences.

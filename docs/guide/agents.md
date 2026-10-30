@@ -20,7 +20,7 @@ agent's integration; their supported syntax varies by agent.
 | Kimi | `hapi kimi` | ACP (`kimi acp`) | ✓ | ✓ | `default` `read-only` `safe-yolo` `yolo` | ✓ |
 | OpenCode | `hapi opencode` | ACP (`opencode acp`) | ✓ | ✓ | `default` `plan` `yolo` | ✓ |
 | DeepSeek Harness | `hapi dsh` | ACP (`dsh --profile acp` or configured server) | — | ✓ | Managed by DSH ACP composition | — |
-| Antigravity (agy) | `hapi agy` | Headless print mode (per-turn `agy -p` + NDJSON) | — | ✓ | `request-review` `always-proceed` | ✓ |
+| Antigravity (agy) | `hapi agy` | Official Google Antigravity ACP agent (this fork) | — | ✓ | `request-review` `always-proceed` | ✓ |
 | Pi | `hapi pi` | `pi --mode rpc` (JSON-line RPC over stdio) | — | ✓ | none (always auto-approve) | ✓ |
 | Gemini CLI | — | **Removed** — Google sunset the consumer Gemini CLI (2026-06-18) | — | — | — | — |
 
@@ -308,7 +308,7 @@ the prompt is loaded by DSH through its own `skill` tool and catalog.
 - **GitHub Copilot** (`hapi copilot`) — Copilot CLI over ACP (`copilot --acp --stdio`). [GitHub Copilot](https://github.com/features/copilot)
 - **Kimi** (`hapi kimi`) — Moonshot AI's Kimi CLI over ACP (`kimi acp`). [MoonshotAI/kimi-cli](https://github.com/MoonshotAI/kimi-cli)
 - **OpenCode** (`hapi opencode`) — the open-source OpenCode agent over ACP (`opencode acp`). [opencode.ai](https://opencode.ai)
-- **Antigravity** (`hapi agy`) — Google's Antigravity CLI (`agy`), driven headlessly via print mode: every turn spawns `agy -p <msg> --conversation <uuid> --output-format stream-json`, and NDJSON events (init / step_update / result) are streamed into the chat. There is no PTY/TUI wrapper and no hook-based permission bridge: permission handling uses agy's own `settings.json` allow/deny rules (`request-review`) or `--dangerously-skip-permissions` (`always-proceed`). Tool calls that lack an allow-rule are auto-denied by agy and surfaced as a chat hint. MCP servers are configured the standard agy way — in the user's global `~/.gemini/config/mcp_config.json` or a workspace `.agents/mcp_config.json` — and are loaded natively by agy in headless mode (no HAPI injection). Remote-only — there is no local terminal input path. [Google Antigravity](https://antigravity.google)
+- **Antigravity** (`hapi agy`) — this fork launches Google's official Antigravity ACP agent, with one native conversation per HAPI session. Model discovery, prompt streaming, tool permission requests, cancellation and resume use ACP. `request-review` maps to native Default mode, with permission prompts answered in the web chat; `always-proceed` maps to native YOLO. Authentication is handled by the selected native ACP profile. There is no `agy -p` fallback and no local terminal input path. [Setup and fork updates](./antigravity-acp-local.md) · [Google Antigravity](https://antigravity.google)
 
   In the web model picker, models with multiple effort variants appear once,
   with a separate effort selector showing the levels in the machine's catalog.
